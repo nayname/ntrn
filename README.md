@@ -10,7 +10,7 @@ Agentic ADO is a Rust-based project built on the [rig framework](https://github.
 
 The Agentic ADO project consists of these primary modules:
 
-* **Query Classification**: Utilizes git/extractor to classify incoming queries.
+* **Query Classification**: Utilizes rig/extractor to classify incoming queries.
 * **Specification, Parsing, and Validation**:
 
   * **Specification**: Retrieves the appropriate specifications based on the query class.
@@ -34,7 +34,7 @@ graph TD
 #### 1. Query Classification
 
 * **Input**: User intent expressed in natural language.
-* **Operation**: Classifies the query using git/extractor module.
+* **Operation**: Classifies the query using rig/extractor module.
 * **Output**: Query class identifier.
 
 #### 2. Specification, Parsing, and Validation
