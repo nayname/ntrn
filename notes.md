@@ -5,4 +5,4 @@
 * comprehensive validation layer
 * enhanced class specifications for validation
 * quality evaluation
-* andromeda-core integratio
+* andromeda-core integration
