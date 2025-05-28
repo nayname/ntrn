@@ -1,0 +1,76 @@
+To create an Andromeda Protocol application that includes a CW721 component for minting NFTs and a marketplace component for facilitating sales in ANDR tokens (uandr), you can use the provided schema format. Below is the configuration schema suited for deploying your application on the Andromeda chain:
+
+```json
+{
+  "components": [
+    {
+      "description": "CW721 Component for minting NFTs.",
+      "schema": {
+        "InstantiateMsg": {
+          "name": "My NFT Collection",
+          "symbol": "MNC",
+          "minter": "andr1minteraddress...",
+          "kernel_address": "andr1kerneladdress...",
+          "owner": "OptionalOwnerAddress"
+        }
+      }
+    },
+    {
+      "description": "Marketplace Component for selling NFTs using ANDR tokens.",
+      "schema": {
+        "instantiate": {
+          "authorized_cw20_address": "OptionalCW20AuthAddress",
+          "authorized_token_addresses": [
+            "andr1cw721collectionaddress..."
+          ],
+          "kernel_address": "andr1kerneladdress...",
+          "owner": "OptionalOwnerAddress"
+        },
+        "execute": {
+          "receive_nft": {
+            "sender": "andr1user...",
+            "token_id": "123",
+            "msg": "<base64_start_sale_payload>"
+          },
+          "buy": {
+            "token_id": "1",
+            "token_address": "andr1cw721collectionaddress..."
+          },
+          "update_sale": {
+            "token_id": "1",
+            "token_address": "andr1cw721collectionaddress...",
+            "price": "100", 
+            "coin_denom": {
+              "native_token": "uandr"
+            },
+            "recipient": {
+              "address": "andr1selleraddress..."
+            }
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+### Deployment Steps
+
+1. **CW721 Component**
+   - **Instantiation**:
+     - Replace `"My NFT Collection"` and `"MNC"` with your desired collection name and symbol.
+     - Set `"minter"` to the address that will mint NFTs.
+     - Set `"kernel_address"` with the appropriate Andromeda kernel contract address.
+     - Optionally provide an `"owner"`.
+
+2. **Marketplace Component**
+   - **Instantiation**:
+     - Specify the "`andr1cw721collectionaddress...`" that is allowed to initiate sales.
+     - Set `"kernel_address"` with the appropriate Andromeda kernel contract address.
+     - Optionally specify `"owner"`.
+
+   - **Sale Execution**:
+     - Ensure the `buy` and other relevant actions are configured with your NFT's `token_id` and `token_address`.
+     - Set the `price` and ensure the `"coin_denom"` is set to `"uandr"` to accept ANDR tokens.
+
+This configuration will enable the NFT minting and sales functionalities specifically tailored for transactions using ANDR tokens on the Andromeda ecosystem. Adjust the placeholders as necessary with actual addresses and values per your deployment requirements.

@@ -1,0 +1,121 @@
+To achieve your desired setup using Andromeda components, we'll design a smart contract flow and configuration that integrates multiple ADO modules: NFT minting (CW721), a Marketplace for handling sales, a Timelock for fund management, and a Conditional Splitter for commission distribution. Here's the proposed schema and logic flow:
+
+### 1. **Instantiate the NFT Contract (CW721)**
+This module will handle ticket creation and represent each ticket as an NFT.
+
+```json
+{
+  "InstantiateMsg": {
+    "name": "Event Ticket Collection",
+    "symbol": "ETC",
+    "minter": "your_address_here",
+    "kernel_address": "andr1kernel..."
+  }
+}
+```
+
+### 2. **Instantiate the Marketplace Contract**
+This contract facilitates the sale and transfer of tickets.
+
+```json
+{
+  "InstantiateMsg": {
+    "authorized_cw20_address": null,
+    "authorized_token_addresses": ["your_nft_contract_address"],
+    "kernel_address": "andr1kernel...",
+    "owner": "your_address_here"
+  }
+}
+```
+
+### 3. **Mint NFTs Representing Event Tickets**
+Mint each ticket with details such as metadata URI and publisher info.
+
+```json
+{
+  "ExecuteMsg": {
+    "mint": {
+      "token_id": "ticket_unique_id",
+      "owner": "marketplace_contract_address",
+      "token_uri": "https://gateway.pinata.cloud/ipfs/...",
+      "extension": {
+        "publisher": "Your Company"
+      }
+    }
+  }
+}
+```
+
+### 4. **Structure Sales Using the Marketplace**
+Initiate sales by listing NFTs on the marketplace. Each sale will automatically direct funds to a Timelock when a ticket is purchased.
+
+```json
+{
+  "ExecuteMsg": {
+    "receive_nft": {
+      "sender": "your_address_here",
+      "token_id": "ticket_unique_id",
+      "msg": "<base64_encoded_start_sale_payload>"
+    }
+  }
+}
+```
+
+### 5. **Set Up the Timelock Contract**
+This module securely holds the sales proceeds until a specified end-of-month date.
+
+```json
+{
+  "InstantiateMsg": {
+    "kernel_address": "andr1kernel...",
+    "owner": "your_address_here"
+  }
+}
+```
+
+### 6. **Release Funds to Conditional Splitter at Month-End**
+Upon reaching the monthly condition, the Timelock releases funds to the Conditional Splitter.
+
+```json
+{
+  "ExecuteMsg": {
+    "release_funds": {
+      "recipient_addr": "conditional_splitter_address_here",
+      "limit": 10
+    }
+  }
+}
+```
+
+### 7. **Deploy the Conditional Splitter**
+This component will administrate the commission logic, directing funds to both the company and the salesperson based on total monthly sales.
+
+```json
+{
+  "InstantiateMsg": {
+    "conditions": [
+      {
+        "threshold": "0",
+        "recipient": "salesperson_address_here",
+        "commission_percentage": "10"
+      },
+      {
+        "threshold": "intermediate_sales_amount_1",
+        "recipient": "salesperson_address_here",
+        "commission_percentage": "20"
+      },
+      {
+        "threshold": "intermediate_sales_amount_2",
+        "recipient": "salesperson_address_here",
+        "commission_percentage": "25"
+      }
+    ],
+    "company_recipient": "company_address_here"
+  }
+}
+```
+
+### 8. **Complete Monthly Processing**
+Automatically execute the release of funds from the Timelock to the Conditional Splitter component at the end of each month.
+
+By leveraging this flow, you ensure that ticket sales are efficiently managed, commissions are distributed according to performance, and the entire process is secured using smart contract logic on Andromeda's blockchain platform. Adjust the contract addresses and recipients as necessary for your specific use case.

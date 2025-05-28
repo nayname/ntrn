@@ -1,0 +1,24 @@
+To create a new app with a CW20 component as per the user's request, we'll define the schema for the token with the specified properties: token name as 'MyProjectToken', symbol as 'MPT', decimal places as 0, and a minter address with no cap on the total supply. Below is the JSON schema based on the given context and request:
+
+```json
+{
+  "name": "MyProjectToken",
+  "symbol": "MPT",
+  "decimals": 0,
+  "initial_balances": [], // Assuming no initial balances are specified
+  "mint": {
+    "minter": "your_address_here", // Replace with the address of the user who wants to be the minter
+    "cap": null // Null indicates no cap on the total supply
+  },
+  "marketing": {
+    "project": null, // Optional, no URL provided
+    "description": null, // Optional, no description provided
+    "marketing": null, // Optional, no marketing address provided
+    "logo": null // Optional, no logo provided
+  },
+  "kernel_address": null, // Optional, no kernel address specified
+  "owner": "your_address_here" // Using the user's address as the owner, replace "your_address_here" with actual user address
+}
+```
+
+Please ensure to replace `"your_address_here"` with the actual blockchain address of the user who wants to be the minter and owner of the token. If there are additional properties or initial balances you want to specify, they can be added to this schema.
