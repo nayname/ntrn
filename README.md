@@ -6,29 +6,6 @@ This document describes the internal workflow and module interactions within the
 
 Agentic ADO is a Rust-based project built on the [rig framework](https://github.com/0xPlaygrounds/rig/) using the Agentic API to transform user intents expressed in natural language into executable Andromeda Protocol Decentralized Objects (ADOs). The project automates the creation and management of ADOs, establishing a structured pipeline from user intent through JSON specifications to final contract deployment.
 
-## Module Workflow
-
-### High-Level Architecture
-
-The project comprises several key modules:
-
-* **Query classification**: Uses Extractor to get class of the query.
-* **Specification, Validation, Parsing**: 
-  * **Specification**: Gets specifications based on the class.
-  * **Parsing**: Parses user query into a JSON data based in the specifications
-  * **Validation** validates the result
-* **Instantiation**: Prepares MsgInstantiateContract (stub for a contract creation)
-
-# Agentic ADO
-
-This document outlines the internal modules and workflow interactions within the Agentic ADO project.
-
-## Overview
-
-
-
-## Module Workflow
-
 ### High-Level Architecture
 
 The Agentic ADO project consists of these primary modules:
