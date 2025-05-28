@@ -1,4 +1,4 @@
-# note.md
+# notes
 
 * dialog-driven intent refinement
 * complete JSON → CosmWasm contract deployment
