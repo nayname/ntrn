@@ -8,7 +8,6 @@ use serde_json::Value;
 use rig::providers::openai::client::Client;
 
 #[derive(Debug, Deserialize, JsonSchema, Serialize)]
-/// An enum representing the sentiment of a document
 enum ADOs {
     NftMarketplace,
     Crowdfund,
@@ -20,7 +19,6 @@ enum ADOs {
 }
 
 #[derive(Debug, Deserialize, JsonSchema, Serialize)]
-/// A record containing extracted sentiment
 pub struct ProgContext {
     pub ados_components: Vec<String>,
     pub descr: String,
@@ -71,7 +69,6 @@ impl fmt::Display for ProgContext {
 
 #[derive(Debug, Deserialize, JsonSchema, Serialize)]
 pub struct AdoType {
-    /// The sentiment of the document
     ado: ADOs,
 }
 
