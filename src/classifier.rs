@@ -22,7 +22,7 @@ enum ADOs {
 #[derive(Debug, Deserialize, JsonSchema, Serialize)]
 /// A record containing extracted sentiment
 pub struct ProgContext {
-    pub adosComponents: Vec<String>,
+    pub ados_components: Vec<String>,
     pub descr: String,
     pub label: String,
 }
@@ -30,7 +30,7 @@ pub struct ProgContext {
 impl ProgContext {
     pub fn new(class_def: &Value) -> anyhow::Result<Self> {
         let mut context = ProgContext {
-            adosComponents: Vec::new(),
+            ados_components: Vec::new(),
             descr: String::new(),
             label: String::new(),
         };
@@ -41,7 +41,7 @@ impl ProgContext {
                 if let Some(name) = name_val.as_str() {
                     let path = format!("static/config/objects/{}.json", name);
                     let comp_schema = fs::read_to_string(path)?;
-                    context.adosComponents.push(comp_schema);
+                    context.ados_components.push(comp_schema);
                 }
             }
         }
@@ -62,7 +62,7 @@ impl ProgContext {
 impl fmt::Display for ProgContext {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         // Format components as a comma-separated list
-        let components = self.adosComponents.join(", ");
+        let components = self.ados_components.join(", ");
 
         write!(f, "Components: [{}]\nDescription: {}", components, self.descr)
     }
@@ -100,37 +100,37 @@ pub fn get_classes_config (ado_type: AdoType) -> anyhow::Result<ProgContext>{
 
     Ok(match ado_type.ado {
         ADOs::NftMarketplace => {
-            ProgContext::new(&classes_config.get("nft_marketplace").unwrap_or_else(|| panic!(
+            ProgContext::new(classes_config.get("nft_marketplace").unwrap_or_else(|| panic!(
                 "Class definition not found"
             )))?
         },
         ADOs::Crowdfund => {
-            ProgContext::new(&classes_config.get("crowdfund").unwrap_or_else(|| panic!(
+            ProgContext::new(classes_config.get("crowdfund").unwrap_or_else(|| panic!(
                 "Class definition not found"
             )))?
         },
         ADOs::Cw20Exchange => {
-            ProgContext::new(&classes_config.get("cw20_exchange").unwrap_or_else(|| panic!(
+            ProgContext::new(classes_config.get("cw20_exchange").unwrap_or_else(|| panic!(
                 "Class definition not found"
             )))?
         },
         ADOs::AuctionUsingCw20Tokens => {
-            ProgContext::new(&classes_config.get("auction_using_cw20_tokens").unwrap_or_else(|| panic!(
+            ProgContext::new(classes_config.get("auction_using_cw20_tokens").unwrap_or_else(|| panic!(
                 "Class definition not found"
             )))?
         },
         ADOs::ExtendedMarketplace => {
-            ProgContext::new(&classes_config.get("extended_marketplace").unwrap_or_else(|| panic!(
+            ProgContext::new(classes_config.get("extended_marketplace").unwrap_or_else(|| panic!(
                 "Class definition not found"
             )))?
         },
         ADOs::CommissionBasedSales => {
-            ProgContext::new(&classes_config.get("commission_based_sales").unwrap_or_else(|| panic!(
+            ProgContext::new(classes_config.get("commission_based_sales").unwrap_or_else(|| panic!(
                 "Class definition not found"
             )))?
         },
         ADOs::VestingAndStaking => {
-            ProgContext::new(&classes_config.get("vesting_and_staking").unwrap_or_else(|| panic!(
+            ProgContext::new(classes_config.get("vesting_and_staking").unwrap_or_else(|| panic!(
                 "Class definition not found"
             )))?
         }

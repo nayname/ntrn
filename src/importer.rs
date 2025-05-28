@@ -1,5 +1,5 @@
 use anyhow::{Context, Result};
-use cosmwasm_std::{to_binary, Addr};
+use cosmwasm_std::{to_json_binary, Addr};
 use cosmwasm_std::Binary;
 // Pull in InstantiateMsg definitions for every ADO you support.
 use andromeda_non_fungible_tokens::{
@@ -38,7 +38,7 @@ pub fn json_to_cosmwasm(
         admin: "".into(),
         code_id,
         label: label.into(),
-        msg: to_binary(&msg)?.into(),
+        msg: to_json_binary(&msg)?.into(),
         funds: vec![],
     })
 }
