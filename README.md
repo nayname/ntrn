@@ -49,7 +49,7 @@ The project's workflow clearly follows these modular steps:
 graph TD
     A[User Intent] -->|Classification| B[Specification Selection]
     B -->|Parsing| C[JSON Data]
-    C -->|Validation| D[Validated Spec]
+    C -->|Validation| D[JSON Data]
     D -->|Instantiation Preparation| E[MsgInstantiateContract]
     E -->|Broadcast Transaction| F[Blockchain Deployment]
 ```
