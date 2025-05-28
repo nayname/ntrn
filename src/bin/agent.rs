@@ -10,10 +10,6 @@ use iamy::{json_to_cosmwasm, AnyInstantiateMsg};
 use iamy::{get_context, ask_gpt};
 use iamy::{get_classes_config, classify_ado, ProgContext};
 
-//---------------------------------------------------------------------
-// CONSTANTS (lifted directly from the Python source)
-//---------------------------------------------------------------------
-
 /// List of supported ADO operation classes.
 const OPERATIONS: [&str; 7] = [
     "nft_marketplace",
@@ -48,7 +44,7 @@ fn context_from_params(_params: &Value) -> String {
     String::new()
 }
 
-/// Persist the raw LLM answer for later inspection, mirroring the Python version.
+/// Persist the raw LLM answer for later inspection
 fn validate(class_: &str, answer: &str) -> std::io::Result<()> {
     let mut rng = rand::rng();
     let hash: u128 = rng.random();
@@ -62,7 +58,7 @@ fn validate(class_: &str, answer: &str) -> std::io::Result<()> {
 }
 
 //---------------------------------------------------------------------
-// CORE GENERATION LOGIC (port of `generate()` in Python)
+// CORE GENERATION LOGIC 
 //---------------------------------------------------------------------
 
 fn generate(query: &str, map: &mut Vec<Value>) -> anyhow::Result<()> {
@@ -77,15 +73,16 @@ fn generate(query: &str, map: &mut Vec<Value>) -> anyhow::Result<()> {
         &context,
     );
 
-    // 3. CONFIGURATION ASSEMBLY ---------------------------------------------
     let prog_context = get_classes_config(classify_ado(&messages))
         .expect("Failed to get classes config");
 
-    // 4. GENERATION STAGE ----------------------------------------------------
+    // 3. CONFIGURATION ASSEMBLY ---------------------------------------------
     let gen_messages = get_context(
         &GENERATE_FLEX.replace("***QUERY***", query),
         &prog_context.to_string(),
     );
+
+    // 4. GENERATION STAGE ----------------------------------------------------
     let answer_gen = ask_gpt(&gen_messages);
     let answer_str = answer_gen.unwrap_or_else(|err| format!("Error: {}", err));
 
