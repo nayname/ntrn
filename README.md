@@ -27,7 +27,7 @@ graph TD
     A[User Intent] -->|Classification| B[Specification Selection]
     B -->|Parsing| C[JSON Data]
     C -->|Schemas generation| E[JSON schema]
-    D -->|Validation| D[MsgContract classes]
+    D -->|Validation| c[MsgContract classes]
 ```
 
 #### 1. Query Classification
