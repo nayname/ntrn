@@ -6,23 +6,21 @@ use anyhow::Context;
 use rand::Rng;
 use serde_json::{json, Value};
 
-use iamy::{json_to_cosmwasm, AnyInstantiateMsg};
+// use iamy::{json_to_cosmwasm, AnyInstantiateMsg};
 use iamy::{get_context, ask_gpt};
-use iamy::{get_classes_config, classify_ado, ProgContext};
+use iamy::{get_classes_config, classify_contract, ProgContext};
 
-/// List of supported ADO operation classes.
-const OPERATIONS: [&str; 7] = [
-    "nft_marketplace",
-    "crowdfund",
-    "cw20_exchange",
-    "auction_using_cw20_tokens",
-    "extended_marketplace",
-    "commission_based_sales",
-    "vesting_and_staking",
+/// List of supported operation classes.
+const OPERATIONS: [&str; 5] = [
+    "neutron_interchain_queries",
+    "neutron_interchain_txs",
+    "ibc_transfer",
+    "dex_grpc",
+    "reflect"
 ];
 
 /// Prompt template for query‐classification calls to the LLM.
-const CLASSIFY_QUERY: &str = "Lets pretend that we have an LLM app that generates Andromeda Protocol app contracts \
+const CLASSIFY_QUERY: &str = "Lets pretend that we have an LLM app that generates Neutron Cosmwasm Contracts app contracts \
  using user promtps in natural language. You will be given a user's promt. Based on the context, classify the query \
  to one of the following classes. Classes: ***OPERATIONS***. User's query: ***QUERY***";
 
@@ -73,7 +71,7 @@ fn generate(query: &str, map: &mut Vec<Value>) -> anyhow::Result<()> {
         &context,
     );
 
-    let prog_context = get_classes_config(classify_ado(&messages))
+    let prog_context = get_classes_config(classify_contract(&messages))
         .expect("Failed to get classes config");
 
     // 3. CONFIGURATION ASSEMBLY ---------------------------------------------
@@ -103,9 +101,9 @@ fn generate(query: &str, map: &mut Vec<Value>) -> anyhow::Result<()> {
     // let json = fs::read_to_string(&args.spec_path).await?;
     // let sender = Addr::unchecked(args.sender.or_else(|| std::env::var("SENDER_ADDR").ok()).expect("sender address required"));
 
-    let msg: AnyInstantiateMsg = serde_json::from_str(&answer_str)
-        .context("invalid ADO JSON – cannot deserialize into InstantiateMsg")?;
-    let msg = json_to_cosmwasm(&msg, 0, "")?;
+    // let msg: AnyInstantiateMsg = serde_json::from_str(&answer_str)
+    //     .context("invalid JSON – cannot deserialize into InstantiateMsg")?;
+    // let msg = json_to_cosmwasm(&msg, 0, "")?;
     Ok(())
 }
 
