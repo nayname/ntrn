@@ -1,22 +1,22 @@
-# Agentic ADO
+# Agentic Neutron
 
-This document describes the internal workflow and module interactions within the Agentic ADO project.
+This document describes the internal workflow and module interactions within the Agentic Neutron project.
 
 ## Overview
 
-Agentic ADO is a Rust-based project built on the [rig framework](https://github.com/0xPlaygrounds/rig/) using the Agentic API to transform user intents expressed in natural language into executable Andromeda Protocol Decentralized Objects (ADOs). The project automates the creation and management of ADOs, establishing a structured pipeline from user intent through JSON specifications to final contract deployment.
+Agentic Neutron is a Rust-based project built on the [rig framework](https://github.com/0xPlaygrounds/rig/) using the Agentic API to transform user intents expressed in natural language into deterministic JSON message schemas specifically for  Neutron. The project aims to automate smart-contract creation and management by turning user intent into JSON specifications and moving them through a structured pipeline all the way to on-chain deployment.
 
 ### High-Level Architecture
 
-The Agentic ADO project consists of these primary modules:
+The project consists of these primary modules:
 
 * **Query Classification**: Utilizes rig/extractor to classify incoming queries.
 * **Specification, Parsing, and Validation**:
 
-  * **Specification**: Retrieves the appropriate specifications based on the query class.
+  * **Specification**: Retrieves the appropriate specifications based on the query class (https://github.com/neutron-org/neutron-dev-contracts).
   * **Parsing**: Converts user queries into structured JSON data according to these specifications.
   * **Validation**: Ensures that the parsed JSON data meets predefined standards.
-* **Instantiation**: Creates a MsgInstantiateContract stub, preparing it for contract deployment.
+* **Instantiation**: Creates message schemas.
 
 ### Workflow
 
@@ -26,9 +26,8 @@ The project's workflow clearly follows these modular steps:
 graph TD
     A[User Intent] -->|Classification| B[Specification Selection]
     B -->|Parsing| C[JSON Data]
-    C -->|Validation| D[JSON Data]
-    D -->|Instantiation Preparation| E[MsgInstantiateContract]
-    E -->|Broadcast Transaction| F[Blockchain Deployment]
+    C -->|Schemas generation| E[JSON schema]
+    D -->|Validation| D[MsgContract classes]
 ```
 
 #### 1. Query Classification
