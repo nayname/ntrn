@@ -46,15 +46,15 @@ graph TD
   * Validates structured JSON against specifications.
 * **Output**: Validated JSON data structure.
 
-#### 3. Instantiation
+#### 3. Msg schema validation
 
 * **Input**: Validated JSON specification.
-* **Operation**: Prepares a MsgInstantiateContract message for contract deployment.
-* **Output**: Ready-to-broadcast contract instantiation message.
+* **Operation**: Prepares MsgContract schemas.
+* **Output**: JSON schemas with interface description.
 
 ## Example Execution
 
-To run examples of Agentic ADO instantiation pipeline from the command line:
+To run examples of Agentic Neutron instantiation pipeline from the command line:
 
 ```bash
 cargo run --bin agent
