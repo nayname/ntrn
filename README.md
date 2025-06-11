@@ -26,8 +26,8 @@ The project's workflow clearly follows these modular steps:
 graph TD
     A[User Intent] -->|Classification| B[Specification Selection]
     B -->|Parsing| C[JSON Data]
-    C -->|Schemas generation| E[JSON schema]
-    D -->|Validation| c[MsgContract classes]
+    C -->|Schemas generation| D[JSON schema]
+    D -->|Validation| E[MsgContract classes]
 ```
 
 #### 1. Query Classification
