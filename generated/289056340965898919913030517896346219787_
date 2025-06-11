@@ -1,0 +1,49 @@
+To create a swap router that converts ATOM to NTRN on Neutron DEX with a maximum 0.5% slippage, we can utilize the `estimate_multi_hop_swap` from the **QueryMsg** schema and `multi_hop_swap` from the **ExecuteMsg**. This allows us to simulate and execute swaps efficiently. Given the requirements, here are the necessary message schemas to define:
+
+### 1. Estimate Multi-Hop Swap Schema
+
+This schema is used to estimate the outcome of a swap prior to execution, providing an idea of the potential slippage and ensuring it does not exceed the specified limit.
+
+```json
+{
+  "estimate_multi_hop_swap": {
+    "amount_in": "string", // Input amount in ATOM, specified as a string representing the value in the smallest unit.
+    "creator": "string",  // The address of the creator initiating the swap.
+    "exit_limit_price": "string", // The maximum slippage allowed, here it would be set to 0.5%.
+    "pick_best_route": true,  // Set to true to automatically pick the best route for the swap.
+    "receiver": "string",  // The address where the swapped token NTRN should be sent.
+    "routes": [
+      {
+        "hops": ["string"] // The desired path or route the swap should follow, specified by the liquidity pool identifiers.
+      }
+    ]
+  }
+}
+```
+
+### 2. Execute Multi-Hop Swap Schema
+
+This schema defines the actual execution of the swap according to the estimated parameters, ensuring adherence to the specified maximum slippage.
+
+```json
+{
+  "multi_hop_swap": {
+    "amount_in": "string", // Input amount in ATOM, specified as a string representing the value in the smallest unit.
+    "exit_limit_price": "string",  // The maximum slippage allowed, here it would be set to 0.5%.
+    "pick_best_route": true,  // Set to true to automatically pick the best route for the swap.
+    "receiver": "string",  // The address where the swapped token NTRN should be sent.
+    "routes": [
+      {
+        "hops": ["string"]  // The desired path or route the swap should follow, specified by the liquidity pool identifiers.
+      }
+    ]
+  }
+}
+```
+
+### Notes:
+- **"amount_in"**: Represents the amount of ATOM to be swapped, and it should be defined in the smallest unit (e.g., uatom if that's the smallest unit).
+- **"exit_limit_price"**: This would be calculated based on the current exchange rates, ensuring that the slippage does not exceed 0.5%.
+- **"routes"**: Needs to be predefined with the appropriate pool identifiers that link ATOM to NTRN through Neutron DEX.
+
+Please ensure all addresses and amounts are filled correctly and all necessary preconditions for executing swaps on Neutron DEX are met. Adjust route and pool identifiers based on current network liquidity setup.

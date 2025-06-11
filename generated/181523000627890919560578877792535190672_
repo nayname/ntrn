@@ -1,0 +1,35 @@
+To achieve the functionality where 15 NTRN are sent from your wallet to the address `neutron1fees…` through the Neutron Reflect Contract, and the transfer appears as though it is sent from the contract, you will need to construct a CosmosMsg for the Reflect Contract to execute on your behalf. Here's how you can construct the transaction:
+
+1. **Construct an ExecuteMsg for the Reflect Contract**: This message would include a BankMsg to transfer coins.
+
+2. **Wrap the BankMsg in a ReflectMsg**: The Reflect Contract will execute this BankMsg, making it appear as though the contract itself is sending the coins.
+
+Here is how you would structure the message schema:
+
+```json
+{
+  "reflect_msg": {
+    "msgs": [
+      {
+        "bank": {
+          "send": {
+            "to_address": "neutron1fees…",
+            "amount": [
+              {
+                "denom": "NTRN",
+                "amount": "15000000"  // Assuming NTRN uses 6 decimal places, adjust if different
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+- **reflect_msg**: This is part of the `ExecuteMsg` type in the Reflect Contract. It takes an array of CosmosMsgs.
+- **msgs**: This is an array containing the CosmosMsg to be executed by the Reflect Contract.
+- **bank.send**: This part of the CosmosMsg specifies a native send transaction using the bank module.
+
+Ensure to execute this message using an `ExecuteContract` interaction where the contract address is the address of the Reflect Contract. The transaction should be initiated by signing with your wallet's credentials, thus making the Reflect Contract execute the send on your behalf.

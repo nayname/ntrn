@@ -1,0 +1,31 @@
+To execute the increment method on a specific contract and store the sub-message reply ID in the reflect contract state, you will need to formulate an `ExecuteMsg` for the Reflect Contract that utilizes the `reflect_msg` functionality. This `reflect_msg` functionality should include a `smart` query to interact with the desired `counter-contract`. 
+
+Here's a typical JSON message schema in the context of the provided documentation:
+
+```json
+{
+  "reflect_msg": {
+    "msgs": [
+      {
+        "wasm": {
+          "execute": {
+            "contract_addr": "neutron1cnt...", 
+            "msg": "<BASE64_ENCODED_INCREMENT_MESSAGE>",
+            "funds": [] 
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+### Explanation:
+- **`reflect_msg`**: This command allows the Reflect Contract to relay messages to other contracts. 
+- **`msgs`**: An array of messages, specifically a `CosmosMsg_for_Empty` type that will be sent through the Reflect Contract.
+- **`wasm.execute`**: 
+  - **`contract_addr`**: The address of the contract where the increment function needs to be executed.
+  - **`msg`**: The `increment` message needs to be base64 encoded before being placed here. Suppose `{"increment": {}}` is the JSON message expected by the contract for incrementing, it should be transformed into its base64 equivalent.
+  - **`funds`**: Ensure no funds are being sent unless required by the contract's logic.
+
+The above formulation aligns with the context of message reflection in the Reflect Contract, enabling it to execute a specific function on another contract and handle replies using the Neutron SDK's capabilities. Be sure to encode the increment message correctly and ensure the counter contract accepts and processes the increment command.

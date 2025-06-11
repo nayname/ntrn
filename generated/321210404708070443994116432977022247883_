@@ -1,0 +1,19 @@
+To set up an interchain query to fetch the total supply of OSMO from Osmosis once per day, we need to use the "register_bank_total_supply_query" message from the `ExecuteMsg` schema. This message is used to register a query to obtain the total supply of specified denoms from another chain.
+
+Here is how the message should be structured based on the provided schema:
+
+```json
+{
+  "register_bank_total_supply_query": {
+    "connection_id": "YOUR_CONNECTION_ID", // Replace with the actual connection ID to the Osmosis chain
+    "denoms": ["OSMO"],                     // Specify the denom to query
+    "update_period": 86400                  // Set update period to 1 day (86400 seconds)
+  }
+}
+```
+
+- `connection_id`: This should be replaced with the actual connection ID that connects your contract to the Osmosis chain.
+- `denoms`: An array specifying the denominations you want to query. In this case, ["OSMO"] is used.
+- `update_period`: The interval in seconds at which the query should be updated. For once per day, this should be 86400 seconds.
+
+Ensure to replace `"YOUR_CONNECTION_ID"` with the actual connection ID specific to your setup. This message should then be executed within the contract environment to set up the desired interchain query.

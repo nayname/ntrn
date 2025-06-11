@@ -1,0 +1,22 @@
+To generate a Neutron CosmWasm contract message schema that fulfills your described intent, you will need to use the `ExecuteMsg` schema with the `send` message type to initiate a token transfer. You will also require a method to schedule this action every Friday at 12:00 UTC. However, CosmWasm contracts do not support built-in cron-like scheduling natively. You would typically manage such scheduling through an off-chain service or a different smart contract that supports scheduling.
+
+Below is a basic template for the `ExecuteMsg` schema, specifically the `send` message, that you would use to transfer 100 USDC from Neutron to an Osmosis address via `channel-42`. Please note that actual automation over time requires additional mechanisms or off-chain orchestration:
+
+```json
+{
+  "send": {
+    "amount": "100000000",  // Assuming USDC has 6 decimal places
+    "channel": "channel-42",
+    "denom": "USDC",
+    "to": "osmo1...",
+    "timeout_height": null  // You can specify this if needed for transfer safety
+  }
+}
+```
+
+- `amount`: "100000000" is represented as a string, assuming USDC is in a 6 decimal place format which is common for stablecoins like USDC.
+- `denom`: "USDC" to specify the token being transferred.
+- `channel`: "channel-42" is the IBC channel to Osmosis.
+- `to`: The recipient Osmosis address (represented as "osmo1...").
+
+For the automated execution every Friday at 12:00 UTC, consider integrating this message into a routine execution managed outside the contract unless you're using a specific scheduling contract or service that can call the contract's execute function accordingly.

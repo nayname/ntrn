@@ -1,0 +1,21 @@
+Based on your query, you want to send 500 NTRN from your Neutron wallet to a specific address on the Cosmos Hub over `channel-0`, and then record the packet ID in the state. To do this, you'll be using an `ExecuteMsg` in the Neutron CosmWasm contract. Below is the JSON schema that you'll need to fulfill your intent:
+
+```json
+{
+  "send": {
+    "amount": "500",
+    "channel": "channel-0",
+    "denom": "NTRN",
+    "to": "cosmos1..."
+  }
+}
+```
+
+Here's a breakdown of the schema:
+- The `send` object is required, indicating this is a transaction to send tokens.
+- `amount` specifies the amount of NTRN to send, which is "500".
+- `channel` is set to "channel-0", which identifies the IBC channel through which the tokens will be transferred.
+- `denom` is "NTRN", specifying the token denomination.
+- `to` is the address on the Cosmos Hub where the tokens should be sent.
+
+For recording the packet ID in state after the transfer, you would typically handle this in the callback mechanism. This is triggered after a successful IBC transfer acknowledgment, and it would involve updating the contract state to save the packet ID. However, details on modifying the state specifically for packet ID storage should be handled in the contract logic itself, beyond this message schema.

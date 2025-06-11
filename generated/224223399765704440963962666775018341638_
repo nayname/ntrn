@@ -1,0 +1,16 @@
+To fulfill the user's intent of querying a wallet's ATOM balance on the Cosmos Hub every hour and emitting an event if it drops below 10 ATOM, we need to construct a `ExecuteMsg` that leverages the "register_balances_query" functionality of the Neutron Interchain Queries Example Contract.
+
+The specific message will instruct the contract to register a balance query for the given wallet address and connection, with a specified update period (every hour). An additional logic needs to be implemented within the contract to handle the callback and check if the balance is below 10 ATOM, then emit an event. Here's how the initial message could look like:
+
+```json
+{
+  "register_balances_query": {
+    "addr": "your_wallet_address",  // Replace with the actual wallet address
+    "connection_id": "connection-0",  // Ensure this is the correct connection ID for Cosmos Hub
+    "denoms": ["uatom"],  // The denomination for ATOM on the Cosmos Hub
+    "update_period": 3600  // Update period in seconds (3600 seconds = 1 hour)
+  }
+}
+```
+
+This message registers an interchain query to get the ATOM balance for the specified address on the Cosmos Hub over the IBC connection `connection-0` every hour. Note that the logic to emit an event when the balance drops below 10 ATOM must be implemented within the contract's callback handler, which would require additional contract customization beyond just sending this message.

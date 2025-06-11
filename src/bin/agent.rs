@@ -26,7 +26,7 @@ const CLASSIFY_QUERY: &str = "Lets pretend that we have an LLM app that generate
 
 /// Prompt template for schema‑generation calls to the LLM.
 const GENERATE_FLEX: &str = "You will be given a description of the modules and the schema of the modules. Based on this context and the \
- user's query, generate the schema that fulfills the users intent. User's query: ***QUERY***";
+ user's query, generate the Neutrom CosmWasm contract message schemas that fulfills the users intent. User's query: ***QUERY***";
 
 //---------------------------------------------------------------------
 // HELPER UTILITIES
@@ -123,16 +123,15 @@ fn main() -> anyhow::Result<()> {
     };
 
     // Dispatch sample generations (mirrors Python order).
-    generate(queries["nft_marketplace"][0].as_str().unwrap(), &mut map)?;
-    generate(queries["crowdfund"][0].as_str().unwrap(), &mut map)?;
-    generate(queries["cw20_exchange"][0].as_str().unwrap(), &mut map)?;
-    generate(queries["auction_using_cw20_tokens"][0].as_str().unwrap(), &mut map)?;
-    generate(queries["extended_marketplace"][0].as_str().unwrap(), &mut map)?;
-    generate(queries["commission_based_sales"][0].as_str().unwrap(), &mut map)?;
-    generate(queries["vesting_and_staking"][0].as_str().unwrap(), &mut map)?;
-    generate(queries["extended_marketplace"][1].as_str().unwrap(), &mut map)?;
-    generate(queries["cw20_exchange"][1].as_str().unwrap(), &mut map)?;
-    generate(queries["vesting_and_staking"][1].as_str().unwrap(), &mut map)?;
+    generate(queries["neutron_dex_module_grpc"][0].as_str().unwrap(), &mut map)?;
+    generate(queries["neutron_interchain_queries"][0].as_str().unwrap(), &mut map)?;
+    generate(queries["neutron_ibc_transfer"][0].as_str().unwrap(), &mut map)?;
+    generate(queries["neutron_interchain_queries"][1].as_str().unwrap(), &mut map)?;
+    generate(queries["reflect"][0].as_str().unwrap(), &mut map)?;
+    generate(queries["neutron_interchain_transactions"][0].as_str().unwrap(), &mut map)?;
+    generate(queries["reflect"][1].as_str().unwrap(), &mut map)?;
+    generate(queries["neutron_ibc_transfer"][1].as_str().unwrap(), &mut map)?;
+    generate(queries["neutron_interchain_transactions"][1].as_str().unwrap(), &mut map)?;
 
     Ok(())
 }
