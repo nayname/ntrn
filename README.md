@@ -1,6 +1,6 @@
-# Agentic Neutron
+# Ntrn Agentic
 
-This document describes the internal workflow and module interactions within the Agentic Neutron project.
+This document describes the internal workflow and module interactions within the Ntrn Agentic project.
 
 ## Overview
 
