@@ -4,7 +4,7 @@ This document describes the internal workflow and module interactions within the
 
 ## Overview
 
-Agentic Neutron is a Rust-based project built on the [rig framework](https://github.com/0xPlaygrounds/rig/) using the Agentic API to transform user intents expressed in natural language into deterministic JSON message schemas specifically for  Neutron. The project aims to automate smart-contract creation and management by turning user intent into JSON specifications and moving them through a structured pipeline all the way to on-chain deployment.
+Ntrn Agentic is a Rust-based project built on the [rig framework](https://github.com/0xPlaygrounds/rig/) using the Agentic API to transform user intents expressed in natural language into deterministic JSON message schemas specifically for  Neutron. The project aims to automate smart-contract creation and management by turning user intent into JSON specifications and moving them through a structured pipeline all the way to on-chain deployment.
 
 ### High-Level Architecture
 
@@ -54,7 +54,7 @@ graph TD
 
 ## Example Execution
 
-To run examples of Agentic Neutron instantiation pipeline from the command line:
+To run examples of Ntrn Agentic instantiation pipeline from the command line:
 
 ```bash
 cargo run --bin agent
