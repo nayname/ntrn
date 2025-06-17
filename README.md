@@ -4,7 +4,7 @@ This document describes the internal workflow and module interactions within the
 
 ## Overview
 
-Ntrn Agentic is a Rust-based project built on the [rig framework](https://github.com/0xPlaygrounds/rig/) using the Agentic API to transform user intents expressed in natural language into deterministic JSON message schemas specifically for  Neutron. The project automates the creation and management of smart contracts by translating user intents into precise JSON specifications, prioritizing security, reliability, and accuracy in interactions with large language models (LLMs).
+Ntrn Agentic is a Rust-based project built on the [rig framework](https://github.com/0xPlaygrounds/rig/), designed to transform user intents expressed in natural language into deterministic JSON message schemas specifically for  Neutron. The project automates the creation and management of smart contracts by translating user intents into precise JSON specifications, prioritizing security, reliability, and accuracy in interactions with large language models (LLMs).
 
 ### High-Level Architecture
 
